@@ -11,7 +11,7 @@
     "setting": "中国·当代·深圳（科技园区+城中村棋牌室+地下高端赌场）",
     "appearance": "east-asian"
   },
-  "status": "step1.5_done",
+  "status": "step3_in_progress",
   "steps": {
     "step1b": {
       "status": "done",
@@ -21,7 +21,8 @@
       "segment_count": 28
     },
     "step3": {
-      "status": "not_started"
+      "status": "in_progress",
+      "started_at": "2026-04-07T19:37:43.543060+00:00"
     },
     "step4": {
       "status": "not_started"
