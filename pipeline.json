@@ -1,0 +1,29 @@
+{
+  "project": "gambler-awakening-ep01",
+  "created_at": "2026-04-07T12:02:24.977897+00:00",
+  "github_repo": "ykzhujiang/gambler-awakening-ep01",
+  "config": {
+    "theme": "数据分析师遭雷击获得概率感知异能，被前老板卷入地下赌局争夺创业公司控制权。赌术×数据分析融梗，现代都市深圳背景。角色：陆远(30岁数据分析师,瘦高戴眼镜)、周叔(55岁棋牌室老板/前荷官,微胖花衬衫)、方圆(38岁反派CEO,精瘦西装转硬币)、小棉(26岁前台/暗线,马尾辫)。五幕：PUA地狱→觉醒→棋牌室测试→卷入赌局→悬念。搞笑自然穿插，数据梗+赌术梗。概率感知用HUD式半透明数字呈现。",
+    "genre": "thriller",
+    "style": "realistic",
+    "duration": 420,
+    "characters": 4,
+    "setting": "中国·当代·深圳（科技园区+城中村棋牌室+地下高端赌场）",
+    "appearance": "east-asian"
+  },
+  "status": "not_started",
+  "steps": {
+    "step1b": {
+      "status": "not_started"
+    },
+    "step3": {
+      "status": "not_started"
+    },
+    "step4": {
+      "status": "not_started"
+    },
+    "step6": {
+      "status": "not_started"
+    }
+  }
+}
