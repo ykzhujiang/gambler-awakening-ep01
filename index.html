@@ -2,839 +2,97 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>storyboard</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EXP-1041 赌神觉醒 — 剧本</title>
 <style>
-:root {
-  --bg: #0d1117;
-  --card-bg: #161b22;
-  --card-border: #30363d;
-  --text: #e6edf3;
-  --text-secondary: #8b949e;
-  --accent: #58a6ff;
-  --dialogue-bg: rgba(88,166,255,0.08);
-  --dialogue-color: #79c0ff;
-  --part-num-color: #f0883e;
-  --camera-bg: rgba(139,148,158,0.08);
-  --header-gradient: linear-gradient(135deg, #1a1f2e 0%, #0d1117 100%);
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family: -apple-system, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-}
-.container {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 16px;
-}
-/* Header */
-.page-header {
-  background: var(--header-gradient);
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
-  padding: 24px 20px;
-  margin-bottom: 16px;
-  text-align: center;
-}
-.page-header h1 {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  background: linear-gradient(90deg, #58a6ff, #bc8cff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.meta-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-}
-.meta-tag {
-  display: inline-block;
-  font-size: 12px;
-  padding: 2px 10px;
-  border-radius: 99px;
-  background: rgba(88,166,255,0.1);
-  color: var(--accent);
-  border: 1px solid rgba(88,166,255,0.2);
-}
-/* Collapsible sections */
-details {
-  border: 1px solid var(--card-border);
-  border-radius: 10px;
-  margin-bottom: 12px;
-  background: var(--card-bg);
-}
-details summary {
-  padding: 14px 16px;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  user-select: none;
-}
-details summary:hover { color: var(--text); }
-details[open] summary { border-bottom: 1px solid var(--card-border); }
-.section-body {
-  padding: 12px 16px;
-}
-/* Character items */
-.char-item {
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(48,54,61,0.5);
-  font-size: 14px;
-}
-.char-item:last-child { border-bottom: none; }
-.char-dot {
-  display: inline-block;
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  margin-right: 6px;
-  vertical-align: middle;
-}
-.char-desc {
-  display: block;
-  margin-top: 4px;
-  margin-left: 16px;
-  color: var(--text-secondary);
-  font-size: 13px;
-  line-height: 1.6;
-}
-/* Scene items */
-.scene-item {
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(48,54,61,0.5);
-  font-size: 14px;
-}
-.scene-item:last-child { border-bottom: none; }
-.scene-desc {
-  display: block;
-  margin-top: 4px;
-  margin-left: 4px;
-  color: var(--text-secondary);
-  font-size: 13px;
-  line-height: 1.6;
-}
-/* Segment card */
-.segment-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 10px;
-  margin-bottom: 12px;
-  overflow: hidden;
-  transition: border-color 0.2s;
-}
-.segment-card:hover {
-  border-color: rgba(88,166,255,0.4);
-}
-.segment-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 16px 8px;
-}
-.segment-num {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--accent);
-}
-.segment-dur {
-  font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 99px;
-  background: rgba(240,136,62,0.12);
-  color: var(--part-num-color);
-}
-.segment-meta {
-  padding: 0 16px 10px;
-  font-size: 13px;
-  color: var(--text-secondary);
-}
-/* Physical state inside segment */
-.segment-card .physical-state {
-  border: none;
-  border-radius: 0;
-  margin: 0;
-  border-top: 1px solid var(--card-border);
-  border-bottom: 1px solid var(--card-border);
-  background: rgba(139,148,158,0.03);
-}
-.segment-card .physical-state summary {
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 500;
-}
-.ps-item {
-  padding: 4px 16px;
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-/* Parts */
-.parts-container {
-  padding: 10px 16px 6px;
-}
-.part-line {
-  padding: 8px 0;
-  font-size: 15px;
-  line-height: 1.8;
-  border-bottom: 1px solid rgba(48,54,61,0.3);
-}
-.part-line:last-child { border-bottom: none; }
-.part-num {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--part-num-color);
-  background: rgba(240,136,62,0.1);
-  padding: 1px 6px;
-  border-radius: 4px;
-  margin-right: 8px;
-  vertical-align: middle;
-}
-.char-tag {
-  font-weight: 600;
-}
-.dialogue {
-  color: var(--dialogue-color);
-  background: var(--dialogue-bg);
-  padding: 1px 4px;
-  border-radius: 3px;
-  font-style: italic;
-}
-/* Camera */
-.camera-line {
-  padding: 8px 16px 12px;
-  font-size: 13px;
-  color: var(--text-secondary);
-  background: var(--camera-bg);
-  border-top: 1px solid var(--card-border);
-}
-/* Stats */
-.stats-bar {
-  text-align: center;
-  padding: 12px;
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-bottom: 12px;
-}
-.stats-bar span {
-  margin: 0 8px;
-}
-/* Mobile tweaks */
-@media (max-width: 480px) {
-  .container { padding: 10px; }
-  .page-header { padding: 18px 14px; }
-  .page-header h1 { font-size: 19px; }
-  .part-line { font-size: 14px; }
-  .segment-header { padding: 10px 12px 6px; }
-  .parts-container { padding: 8px 12px 4px; }
-}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:18px;line-height:1.8;padding:20px;max-width:600px;margin:0 auto}
+h1{color:#ffd700;font-size:24px;text-align:center;margin:30px 0 10px;text-shadow:0 0 20px rgba(255,215,0,0.3)}
+h2{color:#4fc3f7;font-size:20px;margin:25px 0 10px;border-bottom:1px solid #333;padding-bottom:8px}
+h3{color:#81c784;font-size:18px;margin:20px 0 8px}
+.meta{text-align:center;color:#888;font-size:14px;margin-bottom:30px}
+.segment{background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:12px;padding:20px;margin:20px 0;border-left:4px solid #ffd700}
+.segment-title{color:#ffd700;font-size:20px;font-weight:bold;margin-bottom:12px}
+.info{color:#aaa;font-size:14px;margin-bottom:10px}
+.physical{background:rgba(79,195,247,0.1);border-radius:8px;padding:12px;margin:10px 0;font-size:15px}
+.physical strong{color:#4fc3f7}
+.part{margin:15px 0;padding:15px;background:rgba(255,255,255,0.05);border-radius:8px;border-left:3px solid #81c784}
+.part-label{color:#81c784;font-weight:bold;font-size:14px;margin-bottom:5px}
+.dialogue{color:#ffab40;font-style:italic}
+.camera{background:rgba(255,215,0,0.1);border-radius:8px;padding:12px;margin-top:15px;font-size:15px;color:#ffd700}
+.character{background:rgba(129,199,132,0.1);border-radius:8px;padding:15px;margin:10px 0}
+.character strong{color:#81c784}
+.scene{background:rgba(79,195,247,0.1);border-radius:8px;padding:15px;margin:10px 0}
+.scene strong{color:#4fc3f7}
+.badge{display:inline-block;background:#ffd700;color:#0a0a0f;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:bold;margin-right:8px}
 </style>
 </head>
 <body>
-<div class="container">
 
-<div class="page-header">
-  <h1>storyboard</h1>
-  <div class="meta-tags">
-    <span class="meta-tag">🎬 realistic</span>
-    <span class="meta-tag">🌍 中国·当代·深圳（科技园区+城中村棋牌室+地下高端赌场）</span>
-    <span class="meta-tag">🎨 cinematic thriller, realistic modern She...</span>
-    <span class="meta-tag">📊 27 segments</span>
-  </div>
+<h1>🎬 赌神觉醒</h1>
+<div class="meta">EXP-1041 | V6.1 单Segment 15秒短剧剧本<br>风格：写实电影感 | 设定：现代中国·都市地下赌场</div>
+
+<h2>🎭 角色</h2>
+<div class="character">
+<strong>[陆远]</strong><br>
+30岁男性，身高180cm瘦削体型，偏白肤色，瓜子脸，面部轮廓清癯，神情沉静内敛，细长眼戴黑框眼镜，眼睑微垂，目光锐利深邃，黑色微卷中分短发，灰色格纹衬衫配深蓝牛仔裤
+</div>
+<div class="character">
+<strong>[赌王]</strong><br>
+42岁男性，身高175cm肥胖体型，偏黄泛油光的肤色，方脸，小眼，面颊饱满，眼袋浮肿，嘴唇厚实，黑色大背头梳得锃亮，脖子挂粗金链子，穿花衬衫敞着领口，左手叼雪茄，右手不停弹筹码
 </div>
 
-<div class="stats-bar">
-  <span>👤 4 角色</span>
-  <span>🏞️ 6 场景</span>
-  <span>🎬 27 分镜</span>
+<h2>🏠 场景</h2>
+<div class="scene">
+<strong>[地下赌场VIP室-夜]</strong><br>
+昏暗奢华的地下密室，中央一张大型德州扑克桌铺着墨绿天鹅绒，桌上方一盏暖金色聚光灯投下强烈光束，周围隐在黑暗中的围观者只能看到剪影，烟雾从暗处缓缓飘过，空气凝重
 </div>
 
-<details>
-  <summary>👤 角色设定 (4)</summary>
-  <div class="section-body"><div class="char-item"><span class="char-dot" style="background:#e74c3c"></span><strong>[陆远]</strong><span class="char-desc">30岁男性，身高182cm瘦削体型，偏白肤色，瓜子脸细长眼戴黑框眼镜，黑色微卷短发，穿灰格子衬衫和深蓝牛仔裤。</span></div>
-<div class="char-item"><span class="char-dot" style="background:#3498db"></span><strong>[方圆]</strong><span class="char-desc">38岁男性，身高175cm精瘦体型，古铜色皮肤，方脸深眼窝薄嘴唇，黑色大背头，穿定制黑色条纹西装和白衬衫。</span></div>
-<div class="char-item"><span class="char-dot" style="background:#2ecc71"></span><strong>[周叔]</strong><span class="char-desc">55岁男性，身高170cm微胖体型，小麦色皮肤，圆脸大眼留着胡茬，灰白相间短平头，穿红底花衬衫和黑色长裤。</span></div>
-<div class="char-item"><span class="char-dot" style="background:#f39c12"></span><strong>[小棉]</strong><span class="char-desc">26岁女性，身高165cm匀称体型，白皙肤色，鹅蛋脸大眼高鼻梁，黑色高马尾，穿白色马甲制服和黑短裙。</span></div>
-</div>
-</details>
+<h2>📽️ 分镜</h2>
 
-<details>
-  <summary>🏞️ 场景描述 (6)</summary>
-  <div class="section-body"><div class="scene-item"><strong>[科技园办公室-夜]</strong><span class="scene-desc">深圳现代办公楼，冷色调荧光灯，杂乱的工位堆满报表文件，落地窗外闪烁霓虹灯，压抑逼仄的职场氛围。</span></div>
-<div class="scene-item"><strong>[科技园街道-雨夜]</strong><span class="scene-desc">积水的柏油路面，路灯昏黄，雨丝密集，背景是模糊的写字楼轮廓和明亮的科技园标识，冰冷潮湿。</span></div>
-<div class="scene-item"><strong>[城中村棋牌室-夜]</strong><span class="scene-desc">烟雾缭绕的拥挤空间，暖黄色白炽灯，摆着几张旧麻将桌，墙上贴着褪色海报，充满市井气息和生活感。</span></div>
-<div class="scene-item"><strong>[棋牌室后场-夜]</strong><span class="scene-desc">昏暗的狭小储藏室，一盏吊灯摇晃，散落着旧筹码和扑克牌，纸箱堆叠在角落，光影对比极其强烈。</span></div>
-<div class="scene-item"><strong>[地下赌场大厅-夜]</strong><span class="scene-desc">高端奢华的地下空间，金碧辉煌的水晶吊灯，暗红色地毯，摆满绿呢赌桌，西装革履的安保人员在巡逻。</span></div>
-<div class="scene-item"><strong>[地下赌场VIP室-夜]</strong><span class="scene-desc">隔音的私密房间，中央有一张大型德州扑克桌，暗金色调氛围，顶灯在桌面上投下强烈光束，四周隐藏在阴影中。</span></div>
-</div>
-</details>
-
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 1</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [科技园办公室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#3498db">[方圆]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#3498db">[方圆]</span>**: 画面左侧，站立，右手拿文件，面向右侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，站立，双手自然垂下，面向左侧的<span class="char-tag" style="color:#3498db">[方圆]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#3498db">[方圆]</span>右手将一叠数据报告狠狠砸向桌面，纸张飞散。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#3498db">[方圆]</span>冷笑着说：<span class="dialogue">“陆远，你这数据分析全是垃圾，重做！”</span></div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>双拳紧握，咬紧牙关，瞪着左侧的<span class="char-tag" style="color:#3498db">[方圆]</span>。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>深吸一口气说：<span class="dialogue">“方总，那都是最真实的活跃度数据。”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 中景，平视角度，固定机位，正常速度</div>
+<div class="segment">
+<div class="segment-title">Segment 1 | ≤15秒</div>
+<div class="info">
+<span class="badge">VIP室</span>
+<span class="badge">陆远</span>
+<span class="badge">赌王</span>
 </div>
 
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 2</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [科技园办公室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#3498db">[方圆]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#3498db">[方圆]</span>**: 画面左侧，站立，右手把玩一枚银币，面向右侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，站立，双手握拳，面向左侧的<span class="char-tag" style="color:#3498db">[方圆]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#3498db">[方圆]</span>右手灵活地翻转硬币，嘴角扬起一抹嘲讽的弧度。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#3498db">[方圆]</span>满不在乎地说：<span class="dialogue">“我要的是投资人想看的，你被开除了。”</span></div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>浑身一震，左手猛地指向对面的<span class="char-tag" style="color:#3498db">[方圆]</span>。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>大声质问：<span class="dialogue">“期权下周就到期，你这是过河拆桥！”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 近景，微仰视角度，固定机位，正常速度</div>
+<div class="physical">
+<strong>Physical State:</strong><br>
+• <strong>[陆远]</strong>: 画面右侧，坐在赌桌前，双手平放桌沿，面前只剩三枚筹码，面向左侧的赌王<br>
+• <strong>[赌王]</strong>: 画面左侧，坐在赌桌对面，右手叼雪茄靠椅背，左手懒洋洋弹着面前成堆筹码，面向右侧的陆远
 </div>
 
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 3</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [科技园街道-雨夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面中央，行走，双手抱纸箱，视线低头看路</div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>双手紧紧抱着装满杂物的纸箱，在暴雨中艰难前行。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>的内心独白，绝望地说：<span class="dialogue">“三年的心血，全被他吞了。”</span></div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>右脚踩进极深的积水坑，水花四溅，他身体趔趄。</div>
-
-  </div>
-  <div class="camera-line">🎥 全景，平视角度，缓慢跟拍，正常速度</div>
+<div class="part">
+<div class="part-label">[Part 1] 近景</div>
+[赌王]左手拇指弹起一枚金色筹码，筹码在指间旋转，他嘴角咬着雪茄吐出一口烟，小眼睛得意地眯成缝，看向对面的[陆远]。<br>
+<span class="dialogue">[赌王]："小子，你那三块筹码够买碗面了，别丢人了。"</span>
 </div>
 
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 4</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [科技园街道-雨夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面中央，站立，双手抱纸箱，视线抬头看天</div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>猛地停下脚步，仰起头望向漆黑翻滚的夜空。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>绝望地大声怒吼：<span class="dialogue">“老天爷，这概率合理吗？”</span></div>
-<div class="part-line"><span class="part-num">P3</span>一道刺眼的蓝色闪电从天而降，直击<span class="char-tag" style="color:#e74c3c">[陆远]</span>的头顶。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>身体剧烈抽搐，双臂猛然张开，纸箱滑落坠地。</div>
-
-  </div>
-  <div class="camera-line">🎥 中景，仰视角度，固定机位，正常速度</div>
+<div class="part">
+<div class="part-label">[Part 2] 中景 → 近景推进</div>
+[陆远]面无表情，缓缓闭上眼睛，双手十指交叉放在桌沿，镜头推近他的脸，额角有一滴汗珠滑落。画面色调突然从暖金切换为冰蓝色调——他脑海中的<strong style="color:#00bcd4">概率视界</strong>启动，桌面上每张暗扣的牌浮现出半透明发光的概率数字。
 </div>
 
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 5</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [科技园街道-雨夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陆远]</span>, <span class="char-tag" style="color:#f39c12">[小棉]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面左侧，跌坐地上，右手捂头，面向右侧的<span class="char-tag" style="color:#f39c12">[小棉]</span></div><div class="ps-item">**<span class="char-tag" style="color:#f39c12">[小棉]</span>**: 画面右侧，站立，右手撑黑伞，面向左侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>揉着剧痛的太阳穴，眉头紧锁，缓缓睁开双眼。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#f39c12">[小棉]</span>快步走近，将雨伞倾斜遮住左侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span>。</div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#f39c12">[小棉]</span>关切地问：<span class="dialogue">“先生，你没事吧？需要叫救护车吗？”</span></div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>惊恐地看到<span class="char-tag" style="color:#f39c12">[小棉]</span>头顶浮现蓝光数字<span class="dialogue">“搭讪率：8%”</span>。</div>
-
-  </div>
-  <div class="camera-line">🎥 近景，微俯视角度，缓慢推镜头，正常速度</div>
+<div class="part">
+<div class="part-label">[Part 3] 特写</div>
+[陆远]猛地睁开眼，瞳孔中倒映着蓝色数据光芒，嘴角极其细微地上扬，他右手将仅剩的三枚筹码缓慢而坚定地推到桌中央。<br>
+<span class="dialogue">[陆远]（平静）："All in。"</span>
 </div>
 
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 6</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [科技园街道-雨夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面中央，站立，双手揉眼睛，视线环顾四周</div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>踉跄地站起身，用力揉搓双眼，看向过往的路人。</div>
-<div class="part-line"><span class="part-num">P2</span>街道上每一辆车和行人的头上都漂浮着半透明的概率数字。</div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>倒吸一口凉气，双手颤抖着悬在半空。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>结结巴巴地说：<span class="dialogue">“这...这到底是什么见鬼的异能？”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 主观镜头，平视角度，快速横摇，正常速度</div>
+<div class="part">
+<div class="part-label">[Part 4] 近景</div>
+[赌王]嘴巴微张，雪茄从唇间滑落掉到桌面弹起，金链子随着身体前倾晃荡，他瞪大小眼睛盯着对面。<br>
+<span class="dialogue">[赌王]（结巴）："你……你疯了？"</span><br>
+围观人群阴影中传来倒吸凉气的声音。
 </div>
 
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 7</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [城中村棋牌室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陆远]</span>, <span class="char-tag" style="color:#2ecc71">[周叔]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面左侧，站立，双手插兜，面向右侧牌桌</div><div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[周叔]</span>**: 画面右侧，坐着，右手叼烟，面向左侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>浑身湿透走进喧闹的棋牌室，目光扫过麻将桌。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>的内心独白，低声说：<span class="dialogue">“正好拿这些牌局测测数据。”</span></div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>吐出一口浓浓的烟圈，锐利的目光锁定了<span class="char-tag" style="color:#e74c3c">[陆远]</span>。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>大声招呼说：<span class="dialogue">“小伙子，来避雨还是玩两把？”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 中景，平视角度，横向摇移，正常速度</div>
+<div class="camera">📹 运镜：从中景缓推到近景，平视角度，固定机位过渡到缓慢推进，正常速度</div>
 </div>
 
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 8</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [城中村棋牌室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陆远]</span>, <span class="char-tag" style="color:#2ecc71">[周叔]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面左侧，坐着，右手摸牌，面向右侧桌面</div><div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[周叔]</span>**: 画面右侧，站立，双手抱胸，面向左侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>紧盯桌面，眼前不断闪烁半透明的胡牌概率数字。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>果断地将手中的一张发财重重拍在绿呢桌面上。</div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>嘴角上扬说：<span class="dialogue">“自摸，单吊发财，概率虽小但稳中。”</span></div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>身体前倾，眯起眼睛死死盯着<span class="char-tag" style="color:#e74c3c">[陆远]</span>的每一个动作。</div>
-
-  </div>
-  <div class="camera-line">🎥 特写，微俯视角度，固定机位，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 9</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [城中村棋牌室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#2ecc71">[周叔]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[周叔]</span>**: 画面左侧，站立，右手拍桌，面向右侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，坐着，双手收钱，面向左侧的<span class="char-tag" style="color:#2ecc71">[周叔]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>将桌上赢来的一叠钞票整齐地扫入自己的口袋。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>猛地一拍桌面，巨大的响声让周围安静下来。</div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>压低声音严肃地说：<span class="dialogue">“小子，连赢十八把，跟我来。”</span></div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>推了一下镜框，淡定地站起身跟上对方。</div>
-
-  </div>
-  <div class="camera-line">🎥 中景，平视角度，固定机位，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 10</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [棋牌室后场-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#2ecc71">[周叔]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[周叔]</span>**: 画面左侧，站立，左手关门，面向右侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，站立，双手自然垂下，面向左侧的<span class="char-tag" style="color:#2ecc71">[周叔]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>迅速将木门反锁，发出清脆的金属咔哒声。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>厉声质问：<span class="dialogue">“你在我的场子里出千，活腻了？”</span></div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>目光毫不退缩，冷静地直视左侧的<span class="char-tag" style="color:#2ecc71">[周叔]</span>。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>平静地回答：<span class="dialogue">“我没出千，我只是算出了概率期望值。”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 中景，平视角度，快速推进，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 11</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [棋牌室后场-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#2ecc71">[周叔]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[周叔]</span>**: 画面左侧，站立，双手洗牌，面向右侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，站立，双手插兜，面向左侧的<span class="char-tag" style="color:#2ecc71">[周叔]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>双手翻飞，将一副旧扑克牌洗得令人眼花缭乱。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>挑衅地说：<span class="dialogue">“猜花色，猜对算你有真本事。”</span></div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>眼底闪过一丝蓝光，凝视着飞舞的纸牌残影。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>毫不犹豫地说：<span class="dialogue">“红桃A，出现概率百分之百。”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 近景，平视角度，固定机位，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 12</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [棋牌室后场-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#2ecc71">[周叔]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[周叔]</span>**: 画面左侧，站立，右手翻牌，面向右侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，站立，双手插兜，面向左侧的<span class="char-tag" style="color:#2ecc71">[周叔]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>右手猛地翻开最上面的一张牌，正是鲜红的红桃A。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>右手微微发抖，从口袋里掏出三枚骰子丢在桌上。</div>
-<div class="part-line"><span class="part-num">P3</span>骰子停止滚动，<span class="char-tag" style="color:#e74c3c">[陆远]</span>连看都没看桌面一眼。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>淡淡地说：<span class="dialogue">“四、五、六，大。你服不服？”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 中景，俯视角度，缓慢推镜头，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 13</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [棋牌室后场-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#2ecc71">[周叔]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[周叔]</span>**: 画面左侧，站立，双手按桌，面向右侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，站立，双手撑桌，面向左侧的<span class="char-tag" style="color:#2ecc71">[周叔]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>瞪大双眼，倒吸一口凉气，脸上的横肉微微抽搐。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>激动地说：<span class="dialogue">“当年我若有你这脑子，怎会被踢出荷官台。”</span></div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>上身前倾，双手重重撑在满是灰尘的木桌上。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>咬牙说道：<span class="dialogue">“带我进地下赌场，我要拿回我的公司。”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 近景，平视角度，缓慢横移，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 14</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [地下赌场大厅-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#2ecc71">[周叔]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[周叔]</span>**: 画面左侧，站立，双手背在身后，面向右前方</div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，站立，双手插兜，面向右前方</div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span>两人并肩走入奢华的大厅，皮鞋踩在柔软的红地毯上。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>偏头低声说：<span class="dialogue">“方圆在那间VIP，他对赌了你们公司。”</span></div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>抬头环顾四周，眼中不断涌现繁杂的红色数字光幕。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>冷声说道：<span class="dialogue">“正好，今晚连本带利一并清算。”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 全景，平视角度，跟拍前进，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 15</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [地下赌场VIP室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#3498db">[方圆]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#3498db">[方圆]</span>**: 画面左侧，坐着，右手把玩硬币，面向右前方</div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#3498db">[方圆]</span>舒适地陷在宽大的皮椅里，右手食指拨动银币。</div>
-<div class="part-line"><span class="part-num">P2</span>银币在桌面上飞速旋转，反射着刺眼的顶灯光芒。</div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#3498db">[方圆]</span>嚣张地大笑说：<span class="dialogue">“那破公司现在全归我支配了。”</span></div>
-<div class="part-line"><span class="part-num">P4</span>沉重的橡木门突然被推开，发出一声低沉的摩擦声。</div>
-
-  </div>
-  <div class="camera-line">🎥 中景，正面平视角度，固定机位，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 16</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [地下赌场VIP室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#3498db">[方圆]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#3498db">[方圆]</span>**: 画面左侧，坐着，右手停住硬币，面向右侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，站立，双手自然垂下，面向左侧的<span class="char-tag" style="color:#3498db">[方圆]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#3498db">[方圆]</span>右手猛地拍在桌面上，死死按住那枚旋转的银币。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#3498db">[方圆]</span>脸色一沉说：<span class="dialogue">“你怎么混进来的？安保吃干饭的吗！”</span></div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>拉开椅子稳稳坐下，将一袋筹码重重倒在桌心。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>平静地说：<span class="dialogue">“来谈投资的，方总不敢跟我玩一把？”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 全景，平视角度，缓慢横移，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 17</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [地下赌场VIP室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#f39c12">[小棉]</span>, <span class="char-tag" style="color:#3498db">[方圆]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#f39c12">[小棉]</span>**: 画面中央，站立，双手洗牌，面向前方桌面</div><div class="ps-item">**<span class="char-tag" style="color:#3498db">[方圆]</span>**: 画面左侧，坐着，双手交叉，面向右侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，坐着，双手放桌上，面向左侧的<span class="char-tag" style="color:#3498db">[方圆]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#f39c12">[小棉]</span>穿着赌场制服走上前，双手熟练地切牌洗牌。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#f39c12">[小棉]</span>毫无波澜地说：<span class="dialogue">“德州扑克，无上限，赌局开始。”</span></div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>盯着<span class="char-tag" style="color:#f39c12">[小棉]</span>，内心独白低语：<span class="dialogue">“她竟然是这里的荷官？”</span></div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#f39c12">[小棉]</span>头顶跳动着蓝色的隐藏数据，眼神却直视桌面。</div>
-
-  </div>
-  <div class="camera-line">🎥 中景，平视角度，固定机位，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 18</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [地下赌场VIP室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#3498db">[方圆]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#3498db">[方圆]</span>**: 画面左侧，坐着，左手掀底牌，面向右侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，坐着，右手推筹码，面向左侧的<span class="char-tag" style="color:#3498db">[方圆]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#3498db">[方圆]</span>掀起底牌一角看了一眼，嘴角勾起一抹自信的冷笑。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#3498db">[方圆]</span>嚣张地说：<span class="dialogue">“十万，陆远你那点破工资够输几把？”</span></div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>眼前立刻浮现<span class="dialogue">“胜率78%”</span>，右手果断推出一叠红筹码。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>冷冷地回答：<span class="dialogue">“我全跟了，我的数据绝对不会骗人。”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 近景，越肩镜头，固定机位，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 19</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [地下赌场VIP室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#3498db">[方圆]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#3498db">[方圆]</span>**: 画面左侧，坐着，右手砸桌子，面向右侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，坐着，双手收筹码，面向左侧的<span class="char-tag" style="color:#3498db">[方圆]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>干脆地亮出底牌凑成顺子，双手将筹码全部揽回。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#3498db">[方圆]</span>恼羞成怒，右手重重地一拳砸在绿呢桌面上。</div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#3498db">[方圆]</span>咬牙切齿地说：<span class="dialogue">“运气好罢了，下把要你倾家荡产。”</span></div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>扶了下眼镜微笑着说：<span class="dialogue">“这不是运气，是方差的正常回归。”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 中景，平视角度，快速横摇，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 20</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [地下赌场VIP室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#f39c12">[小棉]</span>, <span class="char-tag" style="color:#3498db">[方圆]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#f39c12">[小棉]</span>**: 画面中央，站立，右手翻公共牌，面向桌面</div><div class="ps-item">**<span class="char-tag" style="color:#3498db">[方圆]</span>**: 画面左侧，坐着，双手推筹码，面向右侧</div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，坐着，凝视桌面，面向左侧</div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#f39c12">[小棉]</span>翻开最后一张河牌，一张黑桃K静静躺在桌中央。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#3498db">[方圆]</span>眼神突然变得极其狂热，双手将面前所有筹码猛推出去。</div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#3498db">[方圆]</span>放肆地大喊道：<span class="dialogue">“All in！老子连公司控制权一起押上！”</span></div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>紧盯桌面，眼前的蓝色胜率数字骤然降至0.01%。</div>
-
-  </div>
-  <div class="camera-line">🎥 特写，俯视角度，缓慢推镜头，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 21</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [地下赌场VIP室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陆远]</span>, <span class="char-tag" style="color:#3498db">[方圆]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，坐着，额头冒汗，面向左侧的<span class="char-tag" style="color:#3498db">[方圆]</span></div><div class="ps-item">**<span class="char-tag" style="color:#3498db">[方圆]</span>**: 画面左侧，坐着，右手转硬币，面向右侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>额头渗出大片冷汗，双手微微颤抖着抓紧桌子边缘。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>的内心独白，急促地说：<span class="dialogue">“不对，这概率完全不符合底牌模型。”</span></div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#3498db">[方圆]</span>右手食指有节奏地敲击银币边缘，发出清脆的叮叮声。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#3498db">[方圆]</span>得意洋洋地说：<span class="dialogue">“不跟就滚蛋，公司永远是我的。”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 近景，平视角度，缓慢推镜头，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 22</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [地下赌场VIP室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#f39c12">[小棉]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#f39c12">[小棉]</span>**: 画面中央，站立，左手轻敲桌面，面向右侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，坐着，视线紧盯左侧的桌面</div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#f39c12">[小棉]</span>不动声色地将左手收回，食指在桌面上快速敲击了两下。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>敏锐地捕捉到这个动作，目光迅速顺着敲击方向移动。</div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>的视线最终落在了<span class="char-tag" style="color:#3498db">[方圆]</span>不断翻转的那枚银币上。</div>
-<div class="part-line"><span class="part-num">P4</span>银币表面的高光数据在<span class="char-tag" style="color:#e74c3c">[陆远]</span>的视野中显示出绝对的异常红光。</div>
-
-  </div>
-  <div class="camera-line">🎥 特写，俯视角度，固定机位，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 23</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [地下赌场VIP室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陆远]</span>, <span class="char-tag" style="color:#3498db">[方圆]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，坐着，左手指向硬币，面向左侧的<span class="char-tag" style="color:#3498db">[方圆]</span></div><div class="ps-item">**<span class="char-tag" style="color:#3498db">[方圆]</span>**: 画面左侧，坐着，右手僵住，面向右侧的<span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>猛地从椅子上站起身，左手食指直指<span class="char-tag" style="color:#3498db">[方圆]</span>的右手。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>厉声暴喝：<span class="dialogue">“那枚硬币底部粘有微缩反光镜在偷看底牌！”</span></div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#3498db">[方圆]</span>脸色瞬间煞白，右手的动作完全僵滞在半空中。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>大步上前说：<span class="dialogue">“你输了，出千直接判负！”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 中景，平视角度，快速推进，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 24</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [地下赌场VIP室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#f39c12">[小棉]</span>, <span class="char-tag" style="color:#3498db">[方圆]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#f39c12">[小棉]</span>**: 画面中央，站立，左手抢夺硬币，面向左侧的<span class="char-tag" style="color:#3498db">[方圆]</span></div><div class="ps-item">**<span class="char-tag" style="color:#3498db">[方圆]</span>**: 画面左侧，坐着，双手乱挥，面向中央的<span class="char-tag" style="color:#f39c12">[小棉]</span></div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，站立，双手撑桌，面向左侧的<span class="char-tag" style="color:#3498db">[方圆]</span></div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#f39c12">[小棉]</span>动作敏捷地俯身，一把从<span class="char-tag" style="color:#3498db">[方圆]</span>指缝间夺下那枚硬币。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#f39c12">[小棉]</span>将硬币翻转，清晰地展示出底部的微型镜片。</div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#3498db">[方圆]</span>歇斯底里地挥舞双手吼道：<span class="dialogue">“你血口喷人，这局不算数！”</span></div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>冷酷地说：<span class="dialogue">“按地下赌场的规矩，你连底裤都输光了。”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 近景，微仰视角度，固定机位，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 25</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [地下赌场VIP室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#2ecc71">[周叔]</span>, <span class="char-tag" style="color:#3498db">[方圆]</span>, <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[周叔]</span>**: 画面左侧，站立，双手按住<span class="char-tag" style="color:#3498db">[方圆]</span>，面向<span class="char-tag" style="color:#3498db">[方圆]</span></div><div class="ps-item">**<span class="char-tag" style="color:#3498db">[方圆]</span>**: 画面中央，瘫坐，双手捂脸，面向下方</div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面右侧，站立，收拾文件，面向左侧</div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>从阴影中跨步而出，粗壮的双手死死将<span class="char-tag" style="color:#3498db">[方圆]</span>按在椅子上。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#2ecc71">[周叔]</span>冷哼一声说：<span class="dialogue">“敢在老子的眼皮底下玩阴的，给我老实点！”</span></div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#3498db">[方圆]</span>痛苦地捂住脸颊，颓然瘫倒在皮椅上放弃了挣扎。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>从桌上拿起公司股权转让协议，仔细折叠放入怀中。</div>
-
-  </div>
-  <div class="camera-line">🎥 全景，俯视角度，缓慢后退，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 26</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [科技园街道-雨夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面中央，行走，双手拿手机，视线低头看屏幕</div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span>雨终于停了，<span class="char-tag" style="color:#e74c3c">[陆远]</span>独自一人漫步在湿润反光的柏油街道上。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>嘴角上扬，看着手机屏幕里公司账户余额恢复正常的提示。</div>
-<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>的内心独白，轻快地说：<span class="dialogue">“混乱的数据模型终于重回正轨了。”</span></div>
-<div class="part-line"><span class="part-num">P4</span>街头的冷风吹拂着他的短发，霓虹灯在他身后闪烁。</div>
-
-  </div>
-  <div class="camera-line">🎥 中景，平视角度，跟拍倒退，正常速度</div>
-</div>
-
-<div class="segment-card">
-  <div class="segment-header">
-    <span class="segment-num">Segment 27</span>
-    <span class="segment-dur">≤15s</span>
-  </div>
-  <div class="segment-meta">📍 [科技园街道-雨夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陆远]</span></div>
-  <details class="physical-state">
-<summary>📐 Physical State</summary>
-<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陆远]</span>**: 画面中央，站立，右手垂下，视线直视正前方空中</div>
-</details>
-  <div class="parts-container">
-    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>眼前的蓝色HUD光幕突然剧烈闪烁，瞬间变成刺眼的血红色。</div>
-<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>猛地倒吸一口冷气，瞳孔瞬间收缩到针尖大小。</div>
-<div class="part-line"><span class="part-num">P3</span>巨大的红色数字充满视野：<span class="dialogue">“100% 极度危险，死亡概率锁定”</span>。</div>
-<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[陆远]</span>惊愕地颤声呢喃道：<span class="dialogue">“怎么会这样...下个赌局才刚开始？”</span></div>
-
-  </div>
-  <div class="camera-line">🎥 近景，微仰视角度，快速推镜头，正常速度</div>
-</div>
-
-
-</div>
-
-<script>
-// Auto-open first segment's physical state on load (optional interactivity)
-document.addEventListener('DOMContentLoaded', function() {
-  // Smooth scroll spy - highlight current segment
-  const cards = document.querySelectorAll('.segment-card');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.borderColor = 'rgba(88,166,255,0.5)';
-      } else {
-        e.target.style.borderColor = '';
-      }
-    });
-  }, { threshold: 0.3 });
-  cards.forEach(c => observer.observe(c));
-});
-</script>
+<p style="text-align:center;color:#555;margin-top:40px;font-size:13px">
+Trinity V3 · Operator · CYCLE-758 · 2026-04-08
+</p>
 </body>
 </html>
