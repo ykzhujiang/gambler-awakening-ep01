@@ -1,0 +1,48 @@
+{
+  "checked_at": "2026-04-07T19:36:21.228813+00:00",
+  "verdict": "PASS",
+  "storyboard": "ep01.md",
+  "setting": "现代中国·都市地下赌场·昏暗烟雾缭绕",
+  "characters": {
+    "陆远": {
+      "completeness": {
+        "pass": true,
+        "missing": []
+      },
+      "image_friendliness": {
+        "pass": true,
+        "vague_terms": []
+      },
+      "setting_consistency": {
+        "pass": false,
+        "note": "Setting '现代中国·都市地下赌场·昏暗烟雾缭绕' implies East Asian context but character lacks explicit East Asian feature keywords. Consider adding specific features (e.g. hair color, skin tone) consistent with the setting."
+      },
+      "differentiation": {
+        "pass": true,
+        "similar_to": null
+      }
+    },
+    "赌王": {
+      "completeness": {
+        "pass": true,
+        "missing": []
+      },
+      "image_friendliness": {
+        "pass": true,
+        "vague_terms": []
+      },
+      "setting_consistency": {
+        "pass": false,
+        "note": "Setting '现代中国·都市地下赌场·昏暗烟雾缭绕' implies East Asian context but character lacks explicit East Asian feature keywords. Consider adding specific features (e.g. hair color, skin tone) consistent with the setting."
+      },
+      "differentiation": {
+        "pass": true,
+        "similar_to": null
+      }
+    }
+  },
+  "hard_fails": 0,
+  "soft_warnings": 2,
+  "auto_fixed": true,
+  "fix_rounds": 1
+}

@@ -11,7 +11,7 @@
     "setting": "中国·当代·深圳（科技园区+城中村棋牌室+地下高端赌场）",
     "appearance": "east-asian"
   },
-  "status": "step1b_done",
+  "status": "step1.5_done",
   "steps": {
     "step1b": {
       "status": "done",
@@ -28,6 +28,14 @@
     },
     "step6": {
       "status": "not_started"
+    },
+    "step1.5": {
+      "status": "done",
+      "started_at": "2026-04-07T19:36:05.973500+00:00",
+      "completed_at": "2026-04-07T19:36:21.402728+00:00",
+      "output": "production/storyboard/ep01_storyboard_verdict.json",
+      "character_verdict": "PASS",
+      "storyboard_verdict": "PASS"
     }
   }
 }
